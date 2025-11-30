@@ -20,7 +20,7 @@ Zabbix is an open-source enterprise monitoring platform used by organizations to
 <h2>Installation Steps</h2>
 
 <p>
-<img width="606" height="358" alt="image" src="https://github.com/user-attachments/assets/d19afaf5-1694-420e-bf65-1ce78a7c5aaf" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/d19afaf5-1694-420e-bf65-1ce78a7c5aaf" />
 
 </p>
 <p>
@@ -29,7 +29,7 @@ created vm
 <br />
 
 <p>
-<img width="1265" height="914" alt="image" src="https://github.com/user-attachments/assets/dee0ff46-9589-4c10-ac61-43894bfcc16e" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/dee0ff46-9589-4c10-ac61-43894bfcc16e" />
 
 </p>
 <p>
@@ -38,11 +38,17 @@ Downloaded putty and ssh into vm
 <br />
 
 <p>
-<img width="1335" height="714" alt="image" src="https://github.com/user-attachments/assets/ca098547-3c6c-4e0e-b40d-a987497c9c0e" /> <img width="1226" height="857" alt="image" src="https://github.com/user-attachments/assets/019af30b-534f-4801-9e62-f90d8a216f95" /> <img width="1644" height="1024" alt="image" src="https://github.com/user-attachments/assets/e1beb233-c0bf-4e2a-bd9a-a8f616d9eee5" />
+ <img width="600" alt="image" src="https://github.com/user-attachments/assets/ca098547-3c6c-4e0e-b40d-a987497c9c0e" /> <img width="600" alt="image" src="https://github.com/user-attachments/assets/019af30b-534f-4801-9e62-f90d8a216f95" /> <img width="600" alt="image" src="https://github.com/user-attachments/assets/e1beb233-c0bf-4e2a-bd9a-a8f616d9eee5" />
 
 </p>
 <p>
-https://www.zabbix.com/download?zabbix=7.0&os_distribution=ubuntu&os_version=24.04&components=server_frontend_agent&db=mysql&ws=apache To ensure that Zabbix Server, Agent and Apache restart in case of reboot, run this command.</p>
+Next, we will go into the Zabbix download page and type in the commands(the link is shown below). It's important to note that if you select a different setting, the commands to install Zabbix will be different. </p> https://www.zabbix.com/download?zabbix=7.0&os_distribution=ubuntu&os_version=24.04&components=server_frontend_agent&db=mysql&ws=apache 
+</p> After we finish installing Zabbix, we want to make sure Zabbix will still run in case if our computer reboots. To ensure that Zabbix Server, Agent and Apache restart in case of reboot, run this command.</p>
+```bash
+systemctl enable zabbix-server zabbix-agent apache2
+```
+
+
 systemctl enable zabbix-server zabbix-agent apache2
 </p>
 <br />

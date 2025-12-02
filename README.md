@@ -44,43 +44,64 @@ Downloaded putty and ssh into vm
 <p>
 Next, we will go into the Zabbix download page and type in the commands(the link is shown below). It's important to note that if you select a different setting, the commands to install Zabbix will be different. </p> https://www.zabbix.com/download?zabbix=7.0&os_distribution=ubuntu&os_version=24.04&components=server_frontend_agent&db=mysql&ws=apache 
 </p> After we finish installing Zabbix, we want to make sure Zabbix will still run in case if our computer reboots. To ensure that Zabbix Server, Agent and Apache restart in case of reboot, run this command.</p>
-```bash
-systemctl enable zabbix-server zabbix-agent apache2
-```
 
-
-systemctl enable zabbix-server zabbix-agent apache2
+```systemctl enable zabbix-server zabbix-agent apache2```
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img width="400" height="350" alt="Screenshot 2025-12-01 172734" src="https://github.com/user-attachments/assets/6ac4d360-6627-4032-9ad6-b16d21802ce5" /> <img width="400" height="350" alt="Screenshot 2025-12-01 173939" src="https://github.com/user-attachments/assets/8642f14c-159e-4032-a192-bbbf26d5fa74" />
+
 </p>
 <p>
-Now we are going to configure the Zabbix Server Front End and set the user interface
+To access our new Zabbix server, I entered http://(your-server-ip-address)/zabbix. Now we are able to log in and configure the Zabbix Server Front End and set the user interface. 
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img width="1307" height="556" alt="Screenshot 2025-12-01 184609" src="https://github.com/user-attachments/assets/8adbc798-a030-4386-a044-5bf4eae237ea" /> <img width="1338" height="719" alt="Screenshot 2025-12-01 184802" src="https://github.com/user-attachments/assets/af8a829f-c1e8-4d91-a59c-305e1e773a06" />
+
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now, I will install Zabbix Agent on a new VM called Host-1 on the same network as my Zabbix Server. In the Zabbix download page, I will keep the current setting as my Zabbix server but I change Zabbix Component from "Server, Frontend, Agent" to "Agent"
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img width="600" alt="Screenshot 2025-12-01 185759" src="https://github.com/user-attachments/assets/f598be1f-51b1-4955-8066-6dd7eaf1d127" />
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now we will install Zabbix agent onto Host-1 VM. Also make sure that your agents are using the same version as your Zabbix server. The following command i typed are shown below. </p>
+
+
+```wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb``` </p>
+
+```dpkg -i zabbix-release_7.0-1+ubuntu24.04_all.deb``` </p>
+
+```apt update``` </p>
+After that, I then run </p>
+
+```apt install zabbix-agent``` </p>
+
+Now to configure the agent, </p>
+
+
+```nano /etc/zabbix/zabbix_agentd.conf``` </p>
+Since the config file is configured to default, it is configured incorrectly. To fix this, edit parameters for Server → Host-1's private IP, ServerActive → Host-1's private IP, Hostname → Host-1 and save. </p>
+
+After any changes to the configuration, you need to restart the agent. </p>
+
+
+```service zabbix-agent restart```
+</p>
+<br />
+
+<p>
+<img width="600" alt="Screenshot 2025-12-01 191610" src="https://github.com/user-attachments/assets/5b940e7e-f95f-4457-9c03-a47fdc344385" />
+</p>
+<p>
+Now to configure a new host using the Zabbix Server user interface. To do this, go to Data Collection → Hosts → Create Host. </p>
+Set Host name → Host-1, set template to Linux by Zabbix Agent, Host Groups → Linux Servers, add interface to tell where the Agent is with Host-1's private IP address.
 </p>
 <br />
 
